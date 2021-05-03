@@ -54,7 +54,21 @@
 #include "synth/mt32synth.h"
 #include "synth/soundfontsynth.h"
 #include "synth/synth.h"
-
+#if (RASPPI <= 1)
+#include <circle/memory.h>
+class CMultiCoreSupport {
+public:
+	CMultiCoreSupport(CMemorySystem* memory) {
+	}
+	virtual void Run(unsigned nCore) {
+	}
+	virtual bool Initialize() {
+		return true;
+	}
+	virtual ~CMultiCoreSupport() {
+	}
+};
+#endif
 class CMT32Pi : public CMultiCoreSupport, CPower, CMIDIParser
 {
 public:
